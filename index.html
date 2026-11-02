@@ -1,153 +1,237 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MARO TEMPLATES - جنوب بورسعيد - لكل مصر - 250ج</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;800;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة مستر حسن جاد</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#08080f;color:#fff;font-family:Cairo;overflow-x:hidden}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.hero{background:radial-gradient(circle at 50% 0%,#9c5cff44,#08080f),#08080f;padding:45px 20px;text-align:center}
-.badge{background:linear-gradient(110deg,#ff2e6d,#9c5cff);padding:8px 18px;border-radius:99px;font-weight:900;display:inline-block}
-.btn{padding:12px 16px;border-radius:12px;border:0;font-weight:900;text-decoration:none;display:inline-block;margin:4px;cursor:pointer;font-size:.9rem;transition:.3s}
-.btn-main{background:linear-gradient(110deg,#ff2e6d,#9c5cff);color:#fff}
-.btn-main:hover{transform:translateY(-2px)}
-.btn-dark{background:#181820;border:1px solid #2a2a38;color:#fff}
-.grid{padding:20px;display:grid;gap:14px;max-width:1100px;margin:auto}
-@media(min-width:650px){.grid{grid-template-columns:1fr 1fr}} @media(min-width:1000px){.grid{grid-template-columns:1fr 1fr 1fr}}
-.card{background:#141420;border:1px solid #2a2a38;border-radius:20px;overflow:hidden;transition:.3s}
-.card:hover{transform:translateY(-5px);border-color:#9c5cff;box-shadow:0 10px 30px #9c5cff20}
-.thumb{height:150px;background-size:cover;background-position:center;position:relative;display:flex;align-items:end;padding:10px}
-.thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(#0000,#141420)}
-.tag{padding:5px 11px;border-radius:99px;font-size:.75rem;font-weight:900;position:absolute;top:10px;right:10px;z-index:2}
-.info{padding:14px}
-.price{font-size:1.5rem;font-weight:900}.old{color:#666;text-decoration:line-through;font-size:.85rem}
-.customizer{background:#10101c;border:2px solid #9c5cff;border-radius:20px;padding:18px;margin:20px auto;max-width:650px;position:sticky;top:10px;z-index:99;backdrop-filter:blur(10px)}
-input{width:100%;padding:11px;border-radius:10px;border:1px solid #333;background:#08080f;color:#fff;margin:6px 0;font-family:Cairo;outline:none}
-input:focus{border-color:#9c5cff}
-.whats-float{position:fixed;bottom:20px;left:20px;z-index:9999;background:#25D366;color:#fff;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 4px 20px #25D36680;text-decoration:none;animation:float 2s infinite}
+:root{--p:#ff6b00;--p2:#ff8f33;--bg:#0f0f0f;--card:#1a1a1a;--text:#fff;--muted:#aaa}
+*{box-sizing:border-box;font-family:'Cairo',sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);min-height:100vh}
+.header{padding:20px;text-align:center;background:linear-gradient(180deg,#1a1a1a,#0f0f0f);border-bottom:2px solid var(--p)}
+.logo{font-size:32px;font-weight:900;color:var(--p)}
+.container{max-width:1000px;margin:0 auto;padding:20px}
+.card{background:var(--card);border-radius:16px;padding:20px;margin:15px 0;border:1px solid #333}
+.btn{background:var(--p);color:#fff;border:none;padding:12px 20px;border-radius:10px;font-weight:700;cursor:pointer;width:100%;margin:6px 0}
+.btn:disabled{opacity:.5}
+.btn-outline{background:transparent;border:2px solid var(--p);color:var(--p)}
+.input{width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;margin:8px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.badge{padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.present{background:#0a5c36;color:#6cffb0}
+.absent{background:#5c0a0a;color:#ff8a8a}
+.tab{display:none}.tab.active{display:block}
+.nav{display:flex;gap:8px;overflow:auto;padding:10px 0}
+.nav button{white-space:nowrap}
+.hint{color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
+<div class="header">
+<div class="logo">منصة مستر حسن جاد</div>
+<div class="hint">Hassan Gad - Port Said</div>
+</div>
+<div class="container">
 
-<a href="https://wa.me/201030980823" class="whats-float" target="_blank">💬</a>
-
-<div class="hero">
-<div class="badge">👑 MARWAN GAD - جنوب بورسعيد - بنخدم كل مصر</div>
-<h1 style="font-size:2.6rem;margin:14px 0;line-height:1.1">منصات جاهزة<br><span style="color:#9c5cff">لكل مصر - 250ج / 300ج / 350ج</span></h1>
-<p style="color:#aaa">جيم - كافيه - عربي - انجليزي - تاريخ - رياضة - كورسات - متاجر SMM</p>
-<p style="color:#53f4e5;font-size:.9rem;margin-top:8px">✅ القاهرة - اسكندرية - اسماعيلية - بورسعيد - الدلتا - الصعيد<br>📍 من جنوب بورسعيد - تسليم أونلاين في 10 دقايق<br>📱 واتساب وكاش: <b style="color:#fff">01030980823</b></p>
-<a href="https://wa.me/201030980823?text=عايز اشوف المنصات - 01030980823" class="btn btn-main" style="margin-top:14px">كلمني واتساب 01030980823 💬</a>
+<div id="home" class="tab active">
+<div class="card" style="text-align:center">
+<h2>مرحباً بك في منصة مستر حسن</h2>
+<p class="hint">سجل كطالب جديد واحصل على كود الدخول</p>
+<button class="btn" onclick="showTab('register')">تسجيل طالب جديد</button>
+<button class="btn btn-outline" onclick="showTab('studentLogin')">دخول الطالب بالكود</button>
+<button class="btn btn-outline" onclick="showTab('adminLogin')">دخول المدرس (الإدارة)</button>
+</div>
 </div>
 
-<div class="customizer">
-<h3 style="text-align:center">⚙️ خصص للعميل في ثانية - أي محافظة</h3>
-<p style="color:#aaa;text-align:center;font-size:.85rem">اكتب بيانات العميل وهيتغير أوتوماتيك</p>
-<input id="c_name" placeholder="اسم المشروع - مثلا: ELITE GYM القاهرة">
-<input id="c_cash" placeholder="رقم فودافون كاش العميل - لو مش هتغيره سيبه فاضي">
-<input id="c_section" placeholder="القسم - جيم / كافيه / عربي / انجليزي / تاريخ / كورس">
-<input id="c_city" placeholder="المحافظة - القاهرة / اسكندرية / اسماعيلية / بورسعيد">
-<input id="c_phone" placeholder="رقم واتساب العميل">
-<button class="btn btn-main" style="width:100%;margin-top:8px" onclick="generate()">🔥 طلع الكود الجاهز باسم العميل</button>
-<pre id="output" style="background:#08080f;border:1px solid #333;border-radius:12px;padding:12px;margin-top:10px;white-space:pre-wrap;display:none;color:#53f4e5;font-size:.75rem;line-height:1.6"></pre>
-</div>
-
-<div class="grid">
-
-<!-- 250ج -->
+<div id="register" class="tab">
 <div class="card">
-<div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600')"><span class="tag" style="background:#ff2e6d;color:#fff">جيم - 250ج</span></div>
-<div class="info"><h3>منصة جيم - ELITE GYM</h3><p style="color:#aaa;font-size:.85rem">عروض + اشتراكات + حجز واتساب + خريطة</p><div class="price">250ج <span class="old">1000ج</span></div><button class="btn btn-main" onclick="buy('منصة جيم - 250ج')">اشتري 250ج - واتساب</button></div>
+<h3>تسجيل طالب جديد</h3>
+<input id="r_name" class="input" placeholder="الاسم ثلاثي - مثال: مروان جاد محمد">
+<input id="r_phone" class="input" placeholder="رقم ولي الأمر">
+<select id="r_stage" class="input"><option value="">اختر المرحلة</option><option>ابتدائي</option><option>إعدادي</option><option>ثانوي</option></select>
+<input id="r_group" class="input" placeholder="اسم المجموعة - مثال: مجموعة السبت">
+<button class="btn" id="btnRegister" onclick="doRegister()">تسجيل والحصول على الكود</button>
+<div id="r_result" class="card" style="display:none;background:#111"></div>
+<button class="btn btn-outline" onclick="showTab('home')">رجوع</button>
+</div>
 </div>
 
+<div id="studentLogin" class="tab">
 <div class="card">
-<div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?q=80&w=600')"><span class="tag" style="background:#ff9a00;color:#000">كافيه - 250ج</span></div>
-<div class="info"><h3>منصة كافيه - CAFE 360</h3><p style="color:#aaa;font-size:.85rem">منيو + طلب دليفري + بلايستيشن</p><div class="price">250ج <span class="old">1000ج</span></div><button class="btn btn-main" onclick="buy('منصة كافيه - 250ج')">اشتري 250ج</button></div>
+<h3>دخول الطالب</h3>
+<input id="s_code" class="input" placeholder="ادخل كود الطالب">
+<button class="btn" onclick="doStudentLogin()">دخول</button>
+<button class="btn btn-outline" onclick="showTab('home')">رجوع</button>
+</div>
 </div>
 
+<div id="studentPortal" class="tab">
 <div class="card">
-<div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=600')"><span class="tag" style="background:#53f4e5;color:#000">متجر SMM - 250ج</span></div>
-<div class="info"><h3>متجر SMM - بيع متابعين</h3><p style="color:#aaa;font-size:.85rem">حاسبة أسعار + طلبات واتساب أوتوماتيك</p><div class="price">250ج <span class="old">1500ج</span></div><button class="btn btn-main" onclick="buy('متجر SMM - 250ج')">اشتري 250ج</button></div>
+<h3 id="sp_name"></h3>
+<p id="sp_info" class="hint"></p>
+<div class="nav">
+<button class="btn" onclick="loadPortal()">الدرجات والحضور</button>
+<button class="btn btn-outline" onclick="loadCourses()">كورساتي</button>
+<button class="btn btn-outline" onclick="logoutStudent()">خروج</button>
+</div>
+<div id="sp_att"></div>
+<div id="sp_grades"></div>
+<div id="sp_pay"></div>
+<div id="sp_courses"></div>
+</div>
 </div>
 
+<div id="adminLogin" class="tab">
 <div class="card">
-<div class="thumb" style="background:linear-gradient(110deg,#111,#333)"><span class="tag" style="background:#fff;color:#000">موقع شركة - 250ج</span></div>
-<div class="info"><h3>موقع شركة / محل / مطعم</h3><p style="color:#aaa;font-size:.85rem">صفحة تعريفية + واتساب + خريطة</p><div class="price">250ج</div><button class="btn btn-main" onclick="buy('موقع شركة - 250ج')">اشتري 250ج</button></div>
+<h3>دخول المدرس</h3>
+<input id="a_email" class="input" value="hassan@hassan.com">
+<input id="a_pass" class="input" type="password" value="joo222">
+<button class="btn" onclick="doAdminLogin()">دخول الإدارة</button>
+<button class="btn btn-outline" onclick="showTab('home')">رجوع</button>
+</div>
 </div>
 
-<!-- 300ج -->
+<div id="adminPanel" class="tab">
 <div class="card">
-<div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=600')"><span class="tag" style="background:#d4af37;color:#000">عربي - 300ج</span></div>
-<div class="info"><h3>منصة لغة عربية - نحو وبلاغة</h3><p style="color:#aaa;font-size:.85rem">45 فيديو + حركات متحركة + مذكرات PDF</p><div class="price">300ج <span class="old">3500ج</span></div><button class="btn btn-main" onclick="buy('منصة عربي - 300ج')">اشتري 300ج</button></div>
+<h3>لوحة تحكم مستر حسن</h3>
+<div class="nav">
+<button class="btn" onclick="adminLoadStudents()">الطلاب</button>
+<button class="btn btn-outline" onclick="adminLoadCourses()">الكورسات</button>
+<button class="btn btn-outline" onclick="logoutAdmin()">خروج</button>
 </div>
-
-<div class="card">
-<div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600')"><span class="tag" style="background:#0077ff;color:#fff">انجليزي - 300ج</span></div>
-<div class="info"><h3>منصة انجليزي - Grammar كامل</h3><p style="color:#aaa;font-size:.85rem">محادثة + قواعد + امتحانات + مذكرات</p><div class="price">300ج</div><button class="btn btn-main" onclick="buy('منصة انجليزي - 300ج')">اشتري 300ج</button></div>
+<div id="admin_content"></div>
 </div>
-
-<div class="card">
-<div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1461360228755-6e81c478b882?q=80&w=600')"><span class="tag" style="background:#8b4513;color:#fff">تاريخ - 300ج</span></div>
-<div class="info"><h3>منصة تاريخ - خرايط متحركة</h3><p style="color:#aaa;font-size:.85rem">خرايط زمنية + قصص + مراجعات ليلة الامتحان</p><div class="price">300ج</div><button class="btn btn-main" onclick="buy('منصة تاريخ - 300ج')">اشتري 300ج</button></div>
-</div>
-
-<div class="card">
-<div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=600')"><span class="tag" style="background:#9c5cff;color:#fff">رياضة - 300ج</span></div>
-<div class="info"><h3>منصة رياضة - جبر وهندسة</h3><p style="color:#aaa;font-size:.85rem">قوانين متحركة + بنك أسئلة + حلول</p><div class="price">300ج</div><button class="btn btn-main" onclick="buy('منصة رياضة - 300ج')">اشتري 300ج</button></div>
-</div>
-
-<div class="card">
-<div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=600')"><span class="tag" style="background:#00d4ff;color:#000">فيزياء - 300ج</span></div>
-<div class="info"><h3>منصة فيزياء / كيميا / أحياء</h3><p style="color:#aaa;font-size:.85rem">تجارب + معادلات متحركة + امتحانات</p><div class="price">300ج</div><button class="btn btn-main" onclick="buy('منصة علوم - 300ج')">اشتري 300ج</button></div>
-</div>
-
-<!-- 350ج -->
-<div class="card">
-<div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600')"><span class="tag" style="background:linear-gradient(110deg,#ff2e6d,#9c5cff);color:#fff">كورس - 350ج</span></div>
-<div class="info"><h3>كورسات - برمجة / انجليزي / عربي</h3><p style="color:#aaa;font-size:.85rem">20 فيديو + شهادة + متابعة واتساب يومية</p><div class="price">350ج <span class="old">1200ج</span></div><button class="btn btn-main" onclick="buy('كورس - 350ج')">اشتري 350ج</button></div>
-</div>
-
-<div class="card" style="border:2px solid #ff2e6d">
-<div class="thumb" style="background:linear-gradient(110deg,#9c5cff,#ff2e6d)"><span class="tag" style="background:#000;color:#fff">ذهبية - 350ج - الأكثر مبيعاً 🔥</span></div>
-<div class="info"><h3>👑 الباقة الذهبية - كل المواد + دومين مجاني</h3><p style="color:#aaa;font-size:.85rem">5 مواد + 50 فيديو + كل المذكرات + دومين مجاني</p><div class="price">350ج <span class="old">5000ج</span></div><p style="color:#ff2e6d;font-size:.8rem">بتتباع كل يوم 🔥</p><button class="btn btn-main" onclick="buy('الباقة الذهبية - 350ج')" style="background:linear-gradient(110deg,#ff2e6d,#9c5cff)">اشتري الذهبية 350ج 👑</button></div>
 </div>
 
 </div>
-
-<div style="text-align:center;padding:30px">
-<h2>ازاي تستلم؟</h2>
-<p style="color:#aaa;max-width:600px;margin:10px auto;line-height:1.8">1- دوس اشتري - هيفتح واتساب على رقم <b style="color:#fff">01030980823</b><br>2- ابعتلي اسم مشروعك ومحافظتك<br>3- أحولك المنصة باسمك وصورتك ورقم كاشك في 10 دقايق<br>4- تدفع فودافون كاش على نفس الرقم 01030980823</p>
-<a href="https://wa.me/201030980823?text=عايز اشتري منصة - 01030980823" class="btn btn-main">اطلب واتساب دلوقتي - 01030980823 💬</a>
-</div>
-
 <script>
-const MY_WA = "201030980823";
-function buy(type){
-let name=document.getElementById('c_name').value||'مشروع جديد';
-let city=document.getElementById('c_city').value||'القاهرة';
-let section=document.getElementById('c_section').value||'';
-let msg=`السلام عليكم يا مروان%0Aعايز ${type}%0A%0Aالاسم: ${name}%0Aالمحافظة: ${city}%0Aالقسم: ${section}%0Aرقم الكاش: 01030980823`;
-window.open(`https://wa.me/${MY_WA}?text=${msg}`,'_blank');
+const SUPABASE_URL = "https://uxxqwfgdavfanpfxuate.supabase.co";
+const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4eHF3ZmdkYXZmYW5wZnh1YXRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM1NzI0NzIsImV4cCI6MjEwOTE0ODQ3Mn0.9ARcT8zR1owNFu_mAOs0TbzcLs4eKDwQlKt5x-lTDSw";
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+function showTab(id){ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+async function doRegister(){
+ const btn=document.getElementById('btnRegister'); btn.disabled=true; btn.innerText='جاري التسجيل...';
+ try{
+  const {data,error}=await supabase.rpc('register_student',{p_full_name:document.getElementById('r_name').value,p_guardian_phone:document.getElementById('r_phone').value,p_stage:document.getElementById('r_stage').value,p_group_name:document.getElementById('r_group').value});
+  if(error) throw error;
+  document.getElementById('r_result').style.display='block';
+  document.getElementById('r_result').innerHTML=`<h2 style="color:#ff6b00">✅ تم التسجيل</h2><p>الكود الخاص بك هو:</p><h1 style="letter-spacing:3px;background:#000;padding:15px;border-radius:10px;text-align:center">${data.student_code}</h1><button class="btn" onclick="document.getElementById('s_code').value='${data.student_code}';showTab('studentLogin')">دخول بالكود الآن</button>`;
+ }catch(e){ alert('خطأ: '+e.message); }
+ btn.disabled=false; btn.innerText='تسجيل والحصول على الكود';
 }
-function generate(){
-let name=document.getElementById('c_name').value||'ELITE GYM';
-let cash=document.getElementById('c_cash').value||'01030980823';
-let sec=document.getElementById('c_section').value||'جيم';
-let city=document.getElementById('c_city').value||'القاهرة';
-let phone=document.getElementById('c_phone').value||cash;
-let code=`✅ كود جاهز للعميل - جنوب بورسعيد لكل مصر:\n\nالاسم: ${name}\nالمحافظة: ${city}\nالقسم: ${sec}\nكاش العميل: ${cash}\nواتساب العميل: ${phone}\n\nرقمك الثابت للاستلام: 01030980823\n\n--- ازاي تسلم ---\n1. افتح ملف المنصة الأصلية (جيم / عربي / ...)\n2. اعمل Find & Replace:\n   Find: 01030980823 => Replace: ${cash}\n   Find: ELITE GYM => Replace: ${name}\n   Find: 201030980823 => Replace: ${phone.replace(/^0/,'20')}\n3. ابعته للعميل وخد فلوسك على 01030980823 💰`;
-document.getElementById('output').style.display='block';
-document.getElementById('output').innerText=code;
-window.scrollTo({top:document.getElementById('output').offsetTop-100,behavior:'smooth'});
+let studentToken=null;
+async function doStudentLogin(){
+ try{
+  const code=document.getElementById('s_code').value.trim();
+  if(!code) return alert('ادخل الكود');
+  const {data,error}=await supabase.rpc('student_login',{p_student_code:code});
+  if(error) throw error;
+  studentToken=data.session_token;
+  localStorage.setItem('st',studentToken);
+  document.getElementById('sp_name').innerText='أهلا '+data.full_name;
+  showTab('studentPortal'); loadPortal();
+ }catch(e){ alert(e.message); }
+}
+async function loadPortal(){
+ try{
+  const token=studentToken||localStorage.getItem('st');
+  const {data,error}=await supabase.rpc('student_portal',{p_session_token:token});
+  if(error) throw error;
+  document.getElementById('sp_info').innerText=`${data.stage} - ${data.group_name}`;
+  document.getElementById('sp_att').innerHTML='<h4>📅 الحضور</h4>'+ (data.attendance.length? data.attendance.map(a=>`<div class="card" style="display:flex;justify-content:space-between"><span>${a.date}</span><span class="badge ${a.status=='حاضر'?'present':'absent'}">${a.status}</span></div>`).join(''):'<p class="hint">لا يوجد حضور مسجل</p>');
+  document.getElementById('sp_grades').innerHTML='<h4>📝 الدرجات</h4>'+ (data.grades.length? data.grades.map(g=>`<div class="card"><b>${g.type}: ${g.title}</b><br>${g.score}/${g.max_score}</div>`).join(''):'<p class="hint">لا توجد درجات</p>');
+  document.getElementById('sp_pay').innerHTML='<h4>💰 المدفوعات</h4>'+ (data.payments.length? data.payments.map(p=>`<div class="card">${p.month} - ${p.status} ${p.amount? '('+p.amount+')':''}</div>`).join(''):'<p class="hint">لا يوجد</p>');
+  document.getElementById('sp_courses').innerHTML='';
+ }catch(e){ alert(e.message); }
+}
+async function loadCourses(){
+ try{
+  const token=studentToken||localStorage.getItem('st');
+  const {data,error}=await supabase.rpc('student_courses',{p_session_token:token});
+  if(error) throw error;
+  let html='<h4>🎥 الكورسات</h4>';
+  data.forEach(c=>{
+    html+=`<div class="card"><b>${c.title}</b><p class="hint">${c.description||''}</p><p>السعر: ${c.price} | ${c.unlocked?'✅ مفتوح':'🔒 مقفول'}</p>${c.unlocked? `<button class="btn" onclick="openCourse('${c.id}')">فتح الدروس</button>`:`<p class="hint">تواصل مع المستر لفتح الكورس</p>`}</div>`;
+  });
+  document.getElementById('sp_courses').innerHTML=html;
+  document.getElementById('sp_att').innerHTML=''; document.getElementById('sp_grades').innerHTML=''; document.getElementById('sp_pay').innerHTML='';
+ }catch(e){ alert(e.message); }
+}
+async function openCourse(courseId){
+ const token=studentToken||localStorage.getItem('st');
+ const {data,error}=await supabase.rpc('student_course_lessons',{p_session_token:token,p_course_id:courseId});
+ if(error) return alert(error.message);
+ let html='<h4>الدروس</h4>';
+ data.forEach(l=>{ html+=`<div class="card"><b>${l.title}</b><br><a href="${l.video_url}" target="_blank" style="color:#ff6b00">▶️ فتح الفيديو</a></div>`; });
+ document.getElementById('sp_courses').innerHTML=html;
+}
+function logoutStudent(){ localStorage.removeItem('st'); studentToken=null; showTab('home'); }
+async function doAdminLogin(){
+ try{
+  const {data,error}=await supabase.auth.signInWithPassword({email:document.getElementById('a_email').value,password:document.getElementById('a_pass').value});
+  if(error) throw error;
+  const {data:chk,error:e2}=await supabase.rpc('is_current_user_admin');
+  if(e2) throw e2;
+  if(!chk) throw new Error('هذا الحساب ليس أدمن - نفذ insert admin_users في SQL');
+  showTab('adminPanel'); adminLoadStudents();
+ }catch(e){ alert(e.message); }
+}
+function logoutAdmin(){ supabase.auth.signOut(); showTab('home'); }
+async function adminLoadStudents(){
+ const {data,error}=await supabase.rpc('admin_list_students');
+ if(error) return alert(error.message);
+ let html=`<h4>الطلاب (${data.length})</h4><input id="searchS" class="input" placeholder="بحث..." oninput="filterStudents()">`;
+ html+=data.map(s=>`<div class="card student-row" data-name="${s.full_name}"><b>${s.full_name}</b><br><span class="hint">${s.stage} - ${s.group_name} - ${s.guardian_phone} - كود: ${s.student_code}</span><div class="grid"><button class="btn" onclick="quickAction('${s.id}','att')">+ حضور</button><button class="btn" onclick="quickAction('${s.id}','grade')">+ درجة</button><button class="btn" onclick="quickAction('${s.id}','pay')">+ دفع / كورس</button></div><div id="form-${s.id}"></div></div>`).join('');
+ document.getElementById('admin_content').innerHTML=html;
+}
+function filterStudents(){
+ const q=document.getElementById('searchS').value.toLowerCase();
+ document.querySelectorAll('.student-row').forEach(el=>{ el.style.display=el.dataset.name.toLowerCase().includes(q)?'':'none'; });
+}
+function quickAction(id,type){
+ let h='';
+ if(type=='att') h=`<input id="d-${id}" type="date" class="input" value="${new Date().toISOString().split('T')[0]}"><select id="st-${id}" class="input"><option>حاضر</option><option>غائب</option><option>متأخر</option></select><button class="btn" onclick="saveAtt('${id}')">حفظ الحضور</button>`;
+ if(type=='grade') h=`<select id="gt-${id}" class="input"><option>شيت</option><option>امتحان شهري</option></select><input id="tt-${id}" class="input" placeholder="عنوان الامتحان"><input id="sc-${id}" type="number" class="input" placeholder="الدرجة"><input id="mx-${id}" type="number" class="input" placeholder="النهاية" value="10"><button class="btn" onclick="saveGrade('${id}')">حفظ الدرجة</button>`;
+ if(type=='pay') h=`<input id="mk-${id}" class="input" placeholder="الشهر 2026-05" value="2026-05"><input id="am-${id}" type="number" class="input" placeholder="المبلغ"><select id="ps-${id}" class="input"><option>مدفوع</option><option>غير مدفوع</option><option>قيد المراجعة</option></select><button class="btn" onclick="savePay('${id}')">حفظ الدفع</button><hr><input id="cid-${id}" class="input" placeholder="ID الكورس لفتحه"><button class="btn btn-outline" onclick="grantCourse('${id}')">فتح كورس</button>`;
+ document.getElementById('form-'+id).innerHTML=h;
+}
+async function saveAtt(id){
+ const {error}=await supabase.rpc('admin_add_attendance',{p_student_id:id,p_lesson_date:document.getElementById('d-'+id).value,p_status:document.getElementById('st-'+id).value});
+ if(error) alert(error.message); else alert('✅ حضور');
+}
+async function saveGrade(id){
+ const {error}=await supabase.rpc('admin_add_grade',{p_student_id:id,p_grade_type:document.getElementById('gt-'+id).value,p_title:document.getElementById('tt-'+id).value,p_score:Number(document.getElementById('sc-'+id).value),p_max_score:Number(document.getElementById('mx-'+id).value)});
+ if(error) alert(error.message); else alert('✅ درجة');
+}
+async function savePay(id){
+ const {error}=await supabase.rpc('admin_set_payment',{p_student_id:id,p_month_key:document.getElementById('mk-'+id).value,p_amount:Number(document.getElementById('am-'+id).value),p_status:document.getElementById('ps-'+id).value});
+ if(error) alert(error.message); else alert('✅ دفع');
+}
+async function adminLoadCourses(){
+ const {data,error}=await supabase.rpc('admin_list_courses');
+ if(error) return alert(error.message);
+ let html=`<h4>الكورسات</h4><div class="card"><h4>إضافة كورس</h4><input id="c_title" class="input" placeholder="عنوان الكورس"><input id="c_desc" class="input" placeholder="الوصف"><select id="c_stage" class="input"><option>ثانوي</option><option>إعدادي</option><option>ابتدائي</option></select><input id="c_price" type="number" class="input" placeholder="السعر"><label><input type="checkbox" id="c_pub"> منشور</label><button class="btn" onclick="createCourse()">إنشاء</button></div>`;
+ html+=data.map(c=>`<div class="card"><b>${c.title}</b> - ${c.price}ج - ID: ${c.id}<br><input id="l_t_${c.id}" class="input" placeholder="عنوان الدرس"><input id="l_u_${c.id}" class="input" placeholder="رابط الفيديو"><button class="btn" onclick="addLesson('${c.id}')">+ درس</button></div>`).join('');
+ document.getElementById('admin_content').innerHTML=html;
+}
+async function createCourse(){
+ const {data,error}=await supabase.rpc('admin_create_course',{p_title:document.getElementById('c_title').value,p_description:document.getElementById('c_desc').value,p_stage:document.getElementById('c_stage').value,p_price:Number(document.getElementById('c_price').value),p_published:document.getElementById('c_pub').checked});
+ if(error) return alert(error.message);
+ alert('✅ كورس ID: '+data); adminLoadCourses();
+}
+async function addLesson(cid){
+ const {error}=await supabase.rpc('admin_add_lesson',{p_course_id:cid,p_title:document.getElementById('l_t_'+cid).value,p_video_url:document.getElementById('l_u_'+cid).value});
+ if(error) alert(error.message); else alert('✅ درس');
+}
+async function grantCourse(sid){
+ const cid=document.getElementById('cid-'+sid).value.trim();
+ if(!cid) return alert('ادخل ID الكورس');
+ const {error}=await supabase.rpc('admin_grant_course',{p_student_id:sid,p_course_id:cid});
+ if(error) alert(error.message); else alert('✅ تم فتح الكورس');
 }
 </script>
-
-<div style="text-align:center;padding:30px;color:#666;font-size:.85rem">
-MARWAN GAD © 2026 - جنوب بورسعيد ⚓<br>
-بنخدم كل مصر - القاهرة - اسكندرية - اسماعيلية - بورسعيد - الدلتا - الصعيد<br>
-واتساب وكاش: 01030980823 - تسليم 10 دقايق أونلاين 👑
-</div>
-
 </body>
 </html>
