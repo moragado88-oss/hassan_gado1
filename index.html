@@ -3,58 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منصة مستر حسن جاد</title>
+<title>منصة مستر حسن جاد - V2 مؤمنة</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--p:#ff6b00;--p2:#ff8f33;--bg:#0f0f0f;--card:#1a1a1a;--text:#fff;--muted:#aaa}
+:root{--p:#ff6b00;--bg:#0f0f0f;--card:#1e1e1e;--text:#fff;--muted:#aaa}
 *{box-sizing:border-box;font-family:'Cairo',sans-serif}
-body{margin:0;background:var(--bg);color:var(--text);min-height:100vh}
-.header{padding:20px;text-align:center;background:linear-gradient(180deg,#1a1a1a,#0f0f0f);border-bottom:2px solid var(--p)}
-.logo{font-size:32px;font-weight:900;color:var(--p)}
-.container{max-width:1000px;margin:0 auto;padding:20px}
-.card{background:var(--card);border-radius:16px;padding:20px;margin:15px 0;border:1px solid #333}
-.btn{background:var(--p);color:#fff;border:none;padding:12px 20px;border-radius:10px;font-weight:700;cursor:pointer;width:100%;margin:6px 0}
-.btn:disabled{opacity:.5}
+body{margin:0;background:var(--bg);color:var(--text)}
+.header{padding:20px;text-align:center;background:#1a1a1a;border-bottom:3px solid var(--p)}
+.logo{font-size:30px;font-weight:900;color:var(--p)}
+.container{max-width:1000px;margin:0 auto;padding:15px}
+.card{background:var(--card);border-radius:14px;padding:16px;margin:12px 0;border:1px solid #333}
+.btn{background:var(--p);color:#fff;border:none;padding:11px 16px;border-radius:10px;font-weight:700;cursor:pointer;width:100%;margin:5px 0}
 .btn-outline{background:transparent;border:2px solid var(--p);color:var(--p)}
-.input{width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;margin:8px 0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:700px){.grid{grid-template-columns:1fr}}
-.badge{padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.input{width:100%;padding:11px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;margin:6px 0}
+.tab{display:none}.tab.active{display:block}
+.nav{display:flex;gap:8px;overflow:auto}
+.badge{padding:3px 9px;border-radius:20px;font-size:12px}
 .present{background:#0a5c36;color:#6cffb0}
 .absent{background:#5c0a0a;color:#ff8a8a}
-.tab{display:none}.tab.active{display:block}
-.nav{display:flex;gap:8px;overflow:auto;padding:10px 0}
-.nav button{white-space:nowrap}
+.wa-btn{background:#25D366;color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .hint{color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
-<div class="header">
-<div class="logo">منصة مستر حسن جاد</div>
-<div class="hint">Hassan Gad - Port Said</div>
-</div>
+<div class="header"><div class="logo">منصة مستر حسن جاد</div><div class="hint">01067820554 - Port Said | نسخة مؤمنة V2</div></div>
 <div class="container">
 
 <div id="home" class="tab active">
 <div class="card" style="text-align:center">
-<h2>مرحباً بك في منصة مستر حسن</h2>
-<p class="hint">سجل كطالب جديد واحصل على كود الدخول</p>
+<h2>مرحباً بكم</h2>
 <button class="btn" onclick="showTab('register')">تسجيل طالب جديد</button>
 <button class="btn btn-outline" onclick="showTab('studentLogin')">دخول الطالب بالكود</button>
-<button class="btn btn-outline" onclick="showTab('adminLogin')">دخول المدرس (الإدارة)</button>
+<button class="btn btn-outline" onclick="showTab('adminLogin')">دخول الإدارة (مستر حسن فقط)</button>
 </div>
 </div>
 
 <div id="register" class="tab">
 <div class="card">
 <h3>تسجيل طالب جديد</h3>
-<input id="r_name" class="input" placeholder="الاسم ثلاثي - مثال: مروان جاد محمد">
-<input id="r_phone" class="input" placeholder="رقم ولي الأمر">
-<select id="r_stage" class="input"><option value="">اختر المرحلة</option><option>ابتدائي</option><option>إعدادي</option><option>ثانوي</option></select>
-<input id="r_group" class="input" placeholder="اسم المجموعة - مثال: مجموعة السبت">
-<button class="btn" id="btnRegister" onclick="doRegister()">تسجيل والحصول على الكود</button>
-<div id="r_result" class="card" style="display:none;background:#111"></div>
+<input id="r_name" class="input" placeholder="الاسم ثلاثي">
+<input id="r_phone_guardian" class="input" placeholder="رقم واتساب ولي الأمر - مثال: 01012345678">
+<input id="r_phone_student" class="input" placeholder="رقم واتساب الطالب (اختياري)">
+<select id="r_stage" class="input"><option value="">المرحلة</option><option>ابتدائي</option><option>إعدادي</option><option>ثانوي</option></select>
+<input id="r_group" class="input" placeholder="المجموعة">
+<button class="btn" id="btnReg" onclick="doRegister()">تسجيل والحصول على الكود</button>
+<div id="r_result" style="display:none" class="card"></div>
 <button class="btn btn-outline" onclick="showTab('home')">رجوع</button>
 </div>
 </div>
@@ -62,7 +56,7 @@ body{margin:0;background:var(--bg);color:var(--text);min-height:100vh}
 <div id="studentLogin" class="tab">
 <div class="card">
 <h3>دخول الطالب</h3>
-<input id="s_code" class="input" placeholder="ادخل كود الطالب">
+<input id="s_code" class="input" placeholder="كود الطالب">
 <button class="btn" onclick="doStudentLogin()">دخول</button>
 <button class="btn btn-outline" onclick="showTab('home')">رجوع</button>
 </div>
@@ -70,35 +64,28 @@ body{margin:0;background:var(--bg);color:var(--text);min-height:100vh}
 
 <div id="studentPortal" class="tab">
 <div class="card">
-<h3 id="sp_name"></h3>
-<p id="sp_info" class="hint"></p>
-<div class="nav">
-<button class="btn" onclick="loadPortal()">الدرجات والحضور</button>
-<button class="btn btn-outline" onclick="loadCourses()">كورساتي</button>
-<button class="btn btn-outline" onclick="logoutStudent()">خروج</button>
-</div>
-<div id="sp_att"></div>
-<div id="sp_grades"></div>
-<div id="sp_pay"></div>
-<div id="sp_courses"></div>
+<h3 id="sp_name"></h3><p id="sp_info" class="hint"></p>
+<div class="nav"><button class="btn" onclick="loadPortal()">الدرجات والحضور</button><button class="btn btn-outline" onclick="loadCourses()">كورساتي</button><button class="btn btn-outline" onclick="logoutStudent()">خروج</button></div>
+<div id="sp_att"></div><div id="sp_grades"></div><div id="sp_pay"></div><div id="sp_courses"></div>
 </div>
 </div>
 
 <div id="adminLogin" class="tab">
 <div class="card">
-<h3>دخول المدرس</h3>
-<input id="a_email" class="input" value="hassan@hassan.com">
-<input id="a_pass" class="input" type="password" value="joo222">
-<button class="btn" onclick="doAdminLogin()">دخول الإدارة</button>
+<h3>🔒 دخول مستر حسن فقط</h3>
+<p class="hint">الباسورد مع مستر حسن فقط - غير محفوظ في الصفحة</p>
+<input id="a_email" class="input" placeholder="ايميل المدرس">
+<input id="a_pass" class="input" type="password" placeholder="كلمة السر">
+<button class="btn" onclick="doAdminLogin()">دخول آمن</button>
 <button class="btn btn-outline" onclick="showTab('home')">رجوع</button>
 </div>
 </div>
 
 <div id="adminPanel" class="tab">
 <div class="card">
-<h3>لوحة تحكم مستر حسن</h3>
+<h3>لوحة تحكم مستر حسن - 01067820554</h3>
 <div class="nav">
-<button class="btn" onclick="adminLoadStudents()">الطلاب</button>
+<button class="btn" onclick="adminLoadStudents()">الطلاب وتقارير واتساب</button>
 <button class="btn btn-outline" onclick="adminLoadCourses()">الكورسات</button>
 <button class="btn btn-outline" onclick="logoutAdmin()">خروج</button>
 </div>
@@ -111,127 +98,127 @@ body{margin:0;background:var(--bg);color:var(--text);min-height:100vh}
 const SUPABASE_URL = "https://uxxqwfgdavfanpfxuate.supabase.co";
 const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4eHF3ZmdkYXZmYW5wZnh1YXRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM1NzI0NzIsImV4cCI6MjEwOTE0ODQ3Mn0.9ARcT8zR1owNFu_mAOs0TbzcLs4eKDwQlKt5x-lTDSw";
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+const TEACHER_WA = "01067820554";
+
 function showTab(id){ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+
+function toIntl(phone){ let p=phone.replace(/[^0-9]/g,''); if(p.startsWith('0')) p='2'+p; if(!p.startsWith('2')) p='20'+p.replace(/^0/,''); return p; }
+
 async function doRegister(){
- const btn=document.getElementById('btnRegister'); btn.disabled=true; btn.innerText='جاري التسجيل...';
+ const btn=document.getElementById('btnReg'); btn.disabled=true; btn.innerText='جاري...';
  try{
-  const {data,error}=await supabase.rpc('register_student',{p_full_name:document.getElementById('r_name').value,p_guardian_phone:document.getElementById('r_phone').value,p_stage:document.getElementById('r_stage').value,p_group_name:document.getElementById('r_group').value});
+  const name=document.getElementById('r_name').value;
+  const guardian=document.getElementById('r_phone_guardian').value;
+  const stage=document.getElementById('r_stage').value;
+  const group=document.getElementById('r_group').value;
+  if(!name||!guardian||!stage) throw new Error('اكمل البيانات');
+  const {data,error}=await supabase.rpc('register_student',{p_full_name:name,p_guardian_phone:guardian,p_stage:stage,p_group_name:group});
   if(error) throw error;
+  const waLink = `https://wa.me/${toIntl(guardian)}?text=${encodeURIComponent(`أهلا ولي أمر الطالب ${name} - كود دخول منصة مستر حسن جاد هو: ${data.student_code} - منصة: https://`)}`;
   document.getElementById('r_result').style.display='block';
-  document.getElementById('r_result').innerHTML=`<h2 style="color:#ff6b00">✅ تم التسجيل</h2><p>الكود الخاص بك هو:</p><h1 style="letter-spacing:3px;background:#000;padding:15px;border-radius:10px;text-align:center">${data.student_code}</h1><button class="btn" onclick="document.getElementById('s_code').value='${data.student_code}';showTab('studentLogin')">دخول بالكود الآن</button>`;
- }catch(e){ alert('خطأ: '+e.message); }
+  document.getElementById('r_result').innerHTML=`<h2 style="color:#ff6b00">✅ تم التسجيل</h2><h1 style="background:#000;padding:12px;border-radius:10px;text-align:center;letter-spacing:2px">${data.student_code}</h1><p class="hint">رقم ولي الأمر: ${guardian}</p><a href="${waLink}" target="_blank"><button class="wa-btn">📱 ابعت الكود واتساب لولي الأمر</button></a><br><br><button class="btn" onclick="document.getElementById('s_code').value='${data.student_code}';showTab('studentLogin')">دخول بالكود</button>`;
+ }catch(e){ alert(e.message); }
  btn.disabled=false; btn.innerText='تسجيل والحصول على الكود';
 }
+
 let studentToken=null;
 async function doStudentLogin(){
  try{
   const code=document.getElementById('s_code').value.trim();
-  if(!code) return alert('ادخل الكود');
   const {data,error}=await supabase.rpc('student_login',{p_student_code:code});
   if(error) throw error;
-  studentToken=data.session_token;
-  localStorage.setItem('st',studentToken);
+  studentToken=data.session_token; localStorage.setItem('st',studentToken);
   document.getElementById('sp_name').innerText='أهلا '+data.full_name;
   showTab('studentPortal'); loadPortal();
  }catch(e){ alert(e.message); }
 }
 async function loadPortal(){
- try{
-  const token=studentToken||localStorage.getItem('st');
-  const {data,error}=await supabase.rpc('student_portal',{p_session_token:token});
-  if(error) throw error;
-  document.getElementById('sp_info').innerText=`${data.stage} - ${data.group_name}`;
-  document.getElementById('sp_att').innerHTML='<h4>📅 الحضور</h4>'+ (data.attendance.length? data.attendance.map(a=>`<div class="card" style="display:flex;justify-content:space-between"><span>${a.date}</span><span class="badge ${a.status=='حاضر'?'present':'absent'}">${a.status}</span></div>`).join(''):'<p class="hint">لا يوجد حضور مسجل</p>');
-  document.getElementById('sp_grades').innerHTML='<h4>📝 الدرجات</h4>'+ (data.grades.length? data.grades.map(g=>`<div class="card"><b>${g.type}: ${g.title}</b><br>${g.score}/${g.max_score}</div>`).join(''):'<p class="hint">لا توجد درجات</p>');
-  document.getElementById('sp_pay').innerHTML='<h4>💰 المدفوعات</h4>'+ (data.payments.length? data.payments.map(p=>`<div class="card">${p.month} - ${p.status} ${p.amount? '('+p.amount+')':''}</div>`).join(''):'<p class="hint">لا يوجد</p>');
-  document.getElementById('sp_courses').innerHTML='';
- }catch(e){ alert(e.message); }
+ const token=studentToken||localStorage.getItem('st');
+ const {data,error}=await supabase.rpc('student_portal',{p_session_token:token});
+ if(error) return alert(error.message);
+ document.getElementById('sp_info').innerText=data.stage+' - '+data.group_name;
+ document.getElementById('sp_att').innerHTML='<h4>📅 الحضور</h4>'+data.attendance.map(a=>`<div class="card" style="display:flex;justify-content:space-between"><span>${a.date}</span><span class="badge ${a.status=='حاضر'?'present':'absent'}">${a.status}</span></div>`).join('');
+ document.getElementById('sp_grades').innerHTML='<h4>📝 الدرجات</h4>'+data.grades.map(g=>`<div class="card">${g.type}: ${g.title} = ${g.score}/${g.max_score}</div>`).join('');
+ document.getElementById('sp_pay').innerHTML='<h4>💰 الدفع</h4>'+data.payments.map(p=>`<div class="card">${p.month} - ${p.status} ${p.amount||''}</div>`).join('');
 }
 async function loadCourses(){
- try{
-  const token=studentToken||localStorage.getItem('st');
-  const {data,error}=await supabase.rpc('student_courses',{p_session_token:token});
-  if(error) throw error;
-  let html='<h4>🎥 الكورسات</h4>';
-  data.forEach(c=>{
-    html+=`<div class="card"><b>${c.title}</b><p class="hint">${c.description||''}</p><p>السعر: ${c.price} | ${c.unlocked?'✅ مفتوح':'🔒 مقفول'}</p>${c.unlocked? `<button class="btn" onclick="openCourse('${c.id}')">فتح الدروس</button>`:`<p class="hint">تواصل مع المستر لفتح الكورس</p>`}</div>`;
-  });
-  document.getElementById('sp_courses').innerHTML=html;
-  document.getElementById('sp_att').innerHTML=''; document.getElementById('sp_grades').innerHTML=''; document.getElementById('sp_pay').innerHTML='';
- }catch(e){ alert(e.message); }
-}
-async function openCourse(courseId){
  const token=studentToken||localStorage.getItem('st');
- const {data,error}=await supabase.rpc('student_course_lessons',{p_session_token:token,p_course_id:courseId});
+ const {data,error}=await supabase.rpc('student_courses',{p_session_token:token});
  if(error) return alert(error.message);
- let html='<h4>الدروس</h4>';
- data.forEach(l=>{ html+=`<div class="card"><b>${l.title}</b><br><a href="${l.video_url}" target="_blank" style="color:#ff6b00">▶️ فتح الفيديو</a></div>`; });
+ let html='<h4>🎥 كورساتي</h4>';
+ data.forEach(c=>{ html+=`<div class="card"><b>${c.title}</b><br>${c.unlocked? `<button class="btn" onclick="openCourse('${c.id}')">فتح</button>`:'🔒 مقفول - تواصل مع مستر حسن'} </div>`; });
  document.getElementById('sp_courses').innerHTML=html;
 }
-function logoutStudent(){ localStorage.removeItem('st'); studentToken=null; showTab('home'); }
+async function openCourse(cid){
+ const token=studentToken||localStorage.getItem('st');
+ const {data,error}=await supabase.rpc('student_course_lessons',{p_session_token:token,p_course_id:cid});
+ if(error) return alert(error.message);
+ document.getElementById('sp_courses').innerHTML=data.map(l=>`<div class="card"><b>${l.title}</b><br><a href="${l.video_url}" target="_blank" style="color:#ff6b00">▶️ فتح الفيديو</a></div>`).join('');
+}
+function logoutStudent(){ localStorage.removeItem('st'); showTab('home'); }
+
 async function doAdminLogin(){
  try{
-  const {data,error}=await supabase.auth.signInWithPassword({email:document.getElementById('a_email').value,password:document.getElementById('a_pass').value});
+  const email=document.getElementById('a_email').value.trim();
+  const pass=document.getElementById('a_pass').value;
+  if(!email||!pass) return alert('ادخل الايميل والباسورد');
+  const {error}=await supabase.auth.signInWithPassword({email,password:pass});
   if(error) throw error;
   const {data:chk,error:e2}=await supabase.rpc('is_current_user_admin');
-  if(e2) throw e2;
-  if(!chk) throw new Error('هذا الحساب ليس أدمن - نفذ insert admin_users في SQL');
+  if(e2) throw e2; if(!chk) throw new Error('ليس لديك صلاحية أدمن');
   showTab('adminPanel'); adminLoadStudents();
- }catch(e){ alert(e.message); }
+ }catch(e){ alert('خطأ: '+e.message); }
 }
 function logoutAdmin(){ supabase.auth.signOut(); showTab('home'); }
+
 async function adminLoadStudents(){
  const {data,error}=await supabase.rpc('admin_list_students');
  if(error) return alert(error.message);
- let html=`<h4>الطلاب (${data.length})</h4><input id="searchS" class="input" placeholder="بحث..." oninput="filterStudents()">`;
- html+=data.map(s=>`<div class="card student-row" data-name="${s.full_name}"><b>${s.full_name}</b><br><span class="hint">${s.stage} - ${s.group_name} - ${s.guardian_phone} - كود: ${s.student_code}</span><div class="grid"><button class="btn" onclick="quickAction('${s.id}','att')">+ حضور</button><button class="btn" onclick="quickAction('${s.id}','grade')">+ درجة</button><button class="btn" onclick="quickAction('${s.id}','pay')">+ دفع / كورس</button></div><div id="form-${s.id}"></div></div>`).join('');
+ let html=`<h4>الطلاب (${data.length}) - دوس على رقم ولي الأمر للواتساب</h4><input id="searchS" class="input" placeholder="بحث بالاسم..." oninput="filterStudents()">`;
+ html+=data.map(s=>`<div class="card student-row" data-name="${s.full_name}"><b>${s.full_name}</b><br><span class="hint">${s.stage} - ${s.group_name} - كود: ${s.student_code}</span><br><div style="margin:8px 0">📞 ولي الأمر: <a href="javascript:void(0)" onclick="sendReport('${s.id}','${s.guardian_phone}','${s.full_name}')" style="color:#25D366;font-weight:900">${s.guardian_phone} - ابعت تقرير واتساب</a></div><div class="grid"><button class="btn" onclick="quickAction('${s.id}','att')">+ حضور</button><button class="btn" onclick="quickAction('${s.id}','grade')">+ درجة شيت/امتحان</button><button class="btn" onclick="quickAction('${s.id}','pay')">+ دفع / كورس</button></div><div id="form-${s.id}"></div></div>`).join('');
  document.getElementById('admin_content').innerHTML=html;
 }
-function filterStudents(){
- const q=document.getElementById('searchS').value.toLowerCase();
- document.querySelectorAll('.student-row').forEach(el=>{ el.style.display=el.dataset.name.toLowerCase().includes(q)?'':'none'; });
-}
+function filterStudents(){ const q=document.getElementById('searchS').value.toLowerCase(); document.querySelectorAll('.student-row').forEach(el=>{ el.style.display=el.dataset.name.toLowerCase().includes(q)?'':'none'; }); }
 function quickAction(id,type){
  let h='';
- if(type=='att') h=`<input id="d-${id}" type="date" class="input" value="${new Date().toISOString().split('T')[0]}"><select id="st-${id}" class="input"><option>حاضر</option><option>غائب</option><option>متأخر</option></select><button class="btn" onclick="saveAtt('${id}')">حفظ الحضور</button>`;
- if(type=='grade') h=`<select id="gt-${id}" class="input"><option>شيت</option><option>امتحان شهري</option></select><input id="tt-${id}" class="input" placeholder="عنوان الامتحان"><input id="sc-${id}" type="number" class="input" placeholder="الدرجة"><input id="mx-${id}" type="number" class="input" placeholder="النهاية" value="10"><button class="btn" onclick="saveGrade('${id}')">حفظ الدرجة</button>`;
- if(type=='pay') h=`<input id="mk-${id}" class="input" placeholder="الشهر 2026-05" value="2026-05"><input id="am-${id}" type="number" class="input" placeholder="المبلغ"><select id="ps-${id}" class="input"><option>مدفوع</option><option>غير مدفوع</option><option>قيد المراجعة</option></select><button class="btn" onclick="savePay('${id}')">حفظ الدفع</button><hr><input id="cid-${id}" class="input" placeholder="ID الكورس لفتحه"><button class="btn btn-outline" onclick="grantCourse('${id}')">فتح كورس</button>`;
+ if(type=='att') h=`<input id="d-${id}" type="date" class="input" value="${new Date().toISOString().split('T')[0]}"><select id="st-${id}" class="input"><option>حاضر</option><option>غائب</option><option>متأخر</option></select><button class="btn" onclick="saveAtt('${id}')">حفظ</button>`;
+ if(type=='grade') h=`<select id="gt-${id}" class="input"><option>شيت</option><option>امتحان شهري</option></select><input id="tt-${id}" class="input" placeholder="عنوان"><input id="sc-${id}" type="number" class="input" placeholder="الدرجة"><input id="mx-${id}" type="number" class="input" placeholder="النهاية" value="10"><button class="btn" onclick="saveGrade('${id}')">حفظ</button>`;
+ if(type=='pay') h=`<input id="mk-${id}" class="input" placeholder="الشهر 2026-05" value="2026-05"><input id="am-${id}" type="number" class="input" placeholder="المبلغ"><select id="ps-${id}" class="input"><option>مدفوع</option><option>غير مدفوع</option><option>قيد المراجعة</option></select><button class="btn" onclick="savePay('${id}')">حفظ</button><hr><input id="cid-${id}" class="input" placeholder="ID الكورس"><button class="btn btn-outline" onclick="grantCourse('${id}')">فتح كورس</button>`;
  document.getElementById('form-'+id).innerHTML=h;
 }
-async function saveAtt(id){
- const {error}=await supabase.rpc('admin_add_attendance',{p_student_id:id,p_lesson_date:document.getElementById('d-'+id).value,p_status:document.getElementById('st-'+id).value});
- if(error) alert(error.message); else alert('✅ حضور');
+async function saveAtt(id){ const {error}=await supabase.rpc('admin_add_attendance',{p_student_id:id,p_lesson_date:document.getElementById('d-'+id).value,p_status:document.getElementById('st-'+id).value}); if(error) alert(error.message); else alert('✅ حضور'); }
+async function saveGrade(id){ const {error}=await supabase.rpc('admin_add_grade',{p_student_id:id,p_grade_type:document.getElementById('gt-'+id).value,p_title:document.getElementById('tt-'+id).value,p_score:Number(document.getElementById('sc-'+id).value),p_max_score:Number(document.getElementById('mx-'+id).value)}); if(error) alert(error.message); else alert('✅ درجة'); }
+async function savePay(id){ const {error}=await supabase.rpc('admin_set_payment',{p_student_id:id,p_month_key:document.getElementById('mk-'+id).value,p_amount:Number(document.getElementById('am-'+id).value),p_status:document.getElementById('ps-'+id).value}); if(error) alert(error.message); else alert('✅ دفع'); }
+async function grantCourse(sid){ const cid=document.getElementById('cid-'+sid).value.trim(); if(!cid) return alert('ID الكورس'); const {error}=await supabase.rpc('admin_grant_course',{p_student_id:sid,p_course_id:cid}); if(error) alert(error.message); else alert('✅ فتح'); }
+
+async function sendReport(studentId, phone, fullName){
+ try{
+  const {data,error}=await supabase.rpc('admin_student_report',{p_student_id:studentId});
+  if(error) throw error;
+  const msg=`السلام عليكم ورحمة الله
+مع حضرتك مستر حسن جاد - ${TEACHER_WA}
+تقرير الطالب: ${fullName}
+
+📅 الغيابات: ${data.absences} يوم
+📝 آخر شيت: ${data.last_sheet||'لا يوجد'}
+📝 آخر امتحان: ${data.last_exam||'لا يوجد'}
+💰 حالة دفع الشهر: ${data.payment||'غير مدفوع'}
+
+لو في أي استفسار تواصل معي على نفس الرقم
+مستر حسن جاد`;
+  const url=`https://wa.me/${toIntl(phone)}?text=${encodeURIComponent(msg)}`;
+  window.open(url,'_blank');
+ }catch(e){ alert(e.message); }
 }
-async function saveGrade(id){
- const {error}=await supabase.rpc('admin_add_grade',{p_student_id:id,p_grade_type:document.getElementById('gt-'+id).value,p_title:document.getElementById('tt-'+id).value,p_score:Number(document.getElementById('sc-'+id).value),p_max_score:Number(document.getElementById('mx-'+id).value)});
- if(error) alert(error.message); else alert('✅ درجة');
-}
-async function savePay(id){
- const {error}=await supabase.rpc('admin_set_payment',{p_student_id:id,p_month_key:document.getElementById('mk-'+id).value,p_amount:Number(document.getElementById('am-'+id).value),p_status:document.getElementById('ps-'+id).value});
- if(error) alert(error.message); else alert('✅ دفع');
-}
+
 async function adminLoadCourses(){
- const {data,error}=await supabase.rpc('admin_list_courses');
- if(error) return alert(error.message);
- let html=`<h4>الكورسات</h4><div class="card"><h4>إضافة كورس</h4><input id="c_title" class="input" placeholder="عنوان الكورس"><input id="c_desc" class="input" placeholder="الوصف"><select id="c_stage" class="input"><option>ثانوي</option><option>إعدادي</option><option>ابتدائي</option></select><input id="c_price" type="number" class="input" placeholder="السعر"><label><input type="checkbox" id="c_pub"> منشور</label><button class="btn" onclick="createCourse()">إنشاء</button></div>`;
- html+=data.map(c=>`<div class="card"><b>${c.title}</b> - ${c.price}ج - ID: ${c.id}<br><input id="l_t_${c.id}" class="input" placeholder="عنوان الدرس"><input id="l_u_${c.id}" class="input" placeholder="رابط الفيديو"><button class="btn" onclick="addLesson('${c.id}')">+ درس</button></div>`).join('');
+ const {data,error}=await supabase.rpc('admin_list_courses'); if(error) return alert(error.message);
+ let html=`<div class="card"><h4>إضافة كورس</h4><input id="c_title" class="input" placeholder="عنوان"><input id="c_desc" class="input" placeholder="وصف"><select id="c_stage" class="input"><option>ثانوي</option><option>إعدادي</option><option>ابتدائي</option></select><input id="c_price" type="number" class="input" placeholder="السعر"><label><input type="checkbox" id="c_pub"> منشور</label><button class="btn" onclick="createCourse()">إنشاء</button></div>`;
+ html+=data.map(c=>`<div class="card"><b>${c.title}</b> ID:${c.id}<br><input id="l_t_${c.id}" class="input" placeholder="عنوان الدرس"><input id="l_u_${c.id}" class="input" placeholder="رابط الفيديو"><button class="btn" onclick="addLesson('${c.id}')">+ درس</button></div>`).join('');
  document.getElementById('admin_content').innerHTML=html;
 }
-async function createCourse(){
- const {data,error}=await supabase.rpc('admin_create_course',{p_title:document.getElementById('c_title').value,p_description:document.getElementById('c_desc').value,p_stage:document.getElementById('c_stage').value,p_price:Number(document.getElementById('c_price').value),p_published:document.getElementById('c_pub').checked});
- if(error) return alert(error.message);
- alert('✅ كورس ID: '+data); adminLoadCourses();
-}
-async function addLesson(cid){
- const {error}=await supabase.rpc('admin_add_lesson',{p_course_id:cid,p_title:document.getElementById('l_t_'+cid).value,p_video_url:document.getElementById('l_u_'+cid).value});
- if(error) alert(error.message); else alert('✅ درس');
-}
-async function grantCourse(sid){
- const cid=document.getElementById('cid-'+sid).value.trim();
- if(!cid) return alert('ادخل ID الكورس');
- const {error}=await supabase.rpc('admin_grant_course',{p_student_id:sid,p_course_id:cid});
- if(error) alert(error.message); else alert('✅ تم فتح الكورس');
-}
+async function createCourse(){ const {data,error}=await supabase.rpc('admin_create_course',{p_title:document.getElementById('c_title').value,p_description:document.getElementById('c_desc').value,p_stage:document.getElementById('c_stage').value,p_price:Number(document.getElementById('c_price').value),p_published:document.getElementById('c_pub').checked}); if(error) return alert(error.message); alert('✅ كورس'); adminLoadCourses(); }
+async function addLesson(cid){ const {error}=await supabase.rpc('admin_add_lesson',{p_course_id:cid,p_title:document.getElementById('l_t_'+cid).value,p_video_url:document.getElementById('l_u_'+cid).value}); if(error) alert(error.message); else alert('✅ درس'); }
 </script>
 </body>
 </html>
