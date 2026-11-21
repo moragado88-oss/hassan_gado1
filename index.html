@@ -1,224 +1,352 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منصة مستر حسن جاد - V2 مؤمنة</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-<style>
-:root{--p:#ff6b00;--bg:#0f0f0f;--card:#1e1e1e;--text:#fff;--muted:#aaa}
-*{box-sizing:border-box;font-family:'Cairo',sans-serif}
-body{margin:0;background:var(--bg);color:var(--text)}
-.header{padding:20px;text-align:center;background:#1a1a1a;border-bottom:3px solid var(--p)}
-.logo{font-size:30px;font-weight:900;color:var(--p)}
-.container{max-width:1000px;margin:0 auto;padding:15px}
-.card{background:var(--card);border-radius:14px;padding:16px;margin:12px 0;border:1px solid #333}
-.btn{background:var(--p);color:#fff;border:none;padding:11px 16px;border-radius:10px;font-weight:700;cursor:pointer;width:100%;margin:5px 0}
-.btn-outline{background:transparent;border:2px solid var(--p);color:var(--p)}
-.input{width:100%;padding:11px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;margin:6px 0}
-.tab{display:none}.tab.active{display:block}
-.nav{display:flex;gap:8px;overflow:auto}
-.badge{padding:3px 9px;border-radius:20px;font-size:12px}
-.present{background:#0a5c36;color:#6cffb0}
-.absent{background:#5c0a0a;color:#ff8a8a}
-.wa-btn{background:#25D366;color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
-.hint{color:var(--muted);font-size:13px}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>منصة المستر حسن جاد للغة الإنجليزية</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#4f46e5',
+              600: '#4338ca',
+              700: '#3730a3',
+              800: '#312e81',
+              900: '#1e1b4b',
+            },
+            accent: {
+              500: '#0d9488',
+              600: '#0f766e',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    * {
+      font-family: 'Cairo', sans-serif;
+    }
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      overflow-x: hidden;
+    }
+    /* Custom subtle scrollbars */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+  </style>
 </head>
-<body>
-<div class="header"><div class="logo">منصة مستر حسن جاد</div><div class="hint">01067820554 - Port Said | نسخة مؤمنة V2</div></div>
-<div class="container">
-
-<div id="home" class="tab active">
-<div class="card" style="text-align:center">
-<h2>مرحباً بكم</h2>
-<button class="btn" onclick="showTab('register')">تسجيل طالب جديد</button>
-<button class="btn btn-outline" onclick="showTab('studentLogin')">دخول الطالب بالكود</button>
-<button class="btn btn-outline" onclick="showTab('adminLogin')">دخول الإدارة (مستر حسن فقط)</button>
-</div>
-</div>
-
-<div id="register" class="tab">
-<div class="card">
-<h3>تسجيل طالب جديد</h3>
-<input id="r_name" class="input" placeholder="الاسم ثلاثي">
-<input id="r_phone_guardian" class="input" placeholder="رقم واتساب ولي الأمر - مثال: 01012345678">
-<input id="r_phone_student" class="input" placeholder="رقم واتساب الطالب (اختياري)">
-<select id="r_stage" class="input"><option value="">المرحلة</option><option>ابتدائي</option><option>إعدادي</option><option>ثانوي</option></select>
-<input id="r_group" class="input" placeholder="المجموعة">
-<button class="btn" id="btnReg" onclick="doRegister()">تسجيل والحصول على الكود</button>
-<div id="r_result" style="display:none" class="card"></div>
-<button class="btn btn-outline" onclick="showTab('home')">رجوع</button>
-</div>
-</div>
-
-<div id="studentLogin" class="tab">
-<div class="card">
-<h3>دخول الطالب</h3>
-<input id="s_code" class="input" placeholder="كود الطالب">
-<button class="btn" onclick="doStudentLogin()">دخول</button>
-<button class="btn btn-outline" onclick="showTab('home')">رجوع</button>
-</div>
-</div>
-
-<div id="studentPortal" class="tab">
-<div class="card">
-<h3 id="sp_name"></h3><p id="sp_info" class="hint"></p>
-<div class="nav"><button class="btn" onclick="loadPortal()">الدرجات والحضور</button><button class="btn btn-outline" onclick="loadCourses()">كورساتي</button><button class="btn btn-outline" onclick="logoutStudent()">خروج</button></div>
-<div id="sp_att"></div><div id="sp_grades"></div><div id="sp_pay"></div><div id="sp_courses"></div>
-</div>
-</div>
-
-<div id="adminLogin" class="tab">
-<div class="card">
-<h3>🔒 دخول مستر حسن فقط</h3>
-<p class="hint">الباسورد مع مستر حسن فقط - غير محفوظ في الصفحة</p>
-<input id="a_email" class="input" placeholder="ايميل المدرس">
-<input id="a_pass" class="input" type="password" placeholder="كلمة السر">
-<button class="btn" onclick="doAdminLogin()">دخول آمن</button>
-<button class="btn btn-outline" onclick="showTab('home')">رجوع</button>
-</div>
-</div>
-
-<div id="adminPanel" class="tab">
-<div class="card">
-<h3>لوحة تحكم مستر حسن - 01067820554</h3>
-<div class="nav">
-<button class="btn" onclick="adminLoadStudents()">الطلاب وتقارير واتساب</button>
-<button class="btn btn-outline" onclick="adminLoadCourses()">الكورسات</button>
-<button class="btn btn-outline" onclick="logoutAdmin()">خروج</button>
-</div>
-<div id="admin_content"></div>
-</div>
-</div>
-
-</div>
-<script>
-const SUPABASE_URL = "https://uxxqwfgdavfanpfxuate.supabase.co";
-const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4eHF3ZmdkYXZmYW5wZnh1YXRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM1NzI0NzIsImV4cCI6MjEwOTE0ODQ3Mn0.9ARcT8zR1owNFu_mAOs0TbzcLs4eKDwQlKt5x-lTDSw";
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-const TEACHER_WA = "01067820554";
-
-function showTab(id){ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-
-function toIntl(phone){ let p=phone.replace(/[^0-9]/g,''); if(p.startsWith('0')) p='2'+p; if(!p.startsWith('2')) p='20'+p.replace(/^0/,''); return p; }
-
-async function doRegister(){
- const btn=document.getElementById('btnReg'); btn.disabled=true; btn.innerText='جاري...';
- try{
-  const name=document.getElementById('r_name').value;
-  const guardian=document.getElementById('r_phone_guardian').value;
-  const stage=document.getElementById('r_stage').value;
-  const group=document.getElementById('r_group').value;
-  if(!name||!guardian||!stage) throw new Error('اكمل البيانات');
-  const {data,error}=await supabase.rpc('register_student',{p_full_name:name,p_guardian_phone:guardian,p_stage:stage,p_group_name:group});
-  if(error) throw error;
-  const waLink = `https://wa.me/${toIntl(guardian)}?text=${encodeURIComponent(`أهلا ولي أمر الطالب ${name} - كود دخول منصة مستر حسن جاد هو: ${data.student_code} - منصة: https://`)}`;
-  document.getElementById('r_result').style.display='block';
-  document.getElementById('r_result').innerHTML=`<h2 style="color:#ff6b00">✅ تم التسجيل</h2><h1 style="background:#000;padding:12px;border-radius:10px;text-align:center;letter-spacing:2px">${data.student_code}</h1><p class="hint">رقم ولي الأمر: ${guardian}</p><a href="${waLink}" target="_blank"><button class="wa-btn">📱 ابعت الكود واتساب لولي الأمر</button></a><br><br><button class="btn" onclick="document.getElementById('s_code').value='${data.student_code}';showTab('studentLogin')">دخول بالكود</button>`;
- }catch(e){ alert(e.message); }
- btn.disabled=false; btn.innerText='تسجيل والحصول على الكود';
-}
-
-let studentToken=null;
-async function doStudentLogin(){
- try{
-  const code=document.getElementById('s_code').value.trim();
-  const {data,error}=await supabase.rpc('student_login',{p_student_code:code});
-  if(error) throw error;
-  studentToken=data.session_token; localStorage.setItem('st',studentToken);
-  document.getElementById('sp_name').innerText='أهلا '+data.full_name;
-  showTab('studentPortal'); loadPortal();
- }catch(e){ alert(e.message); }
-}
-async function loadPortal(){
- const token=studentToken||localStorage.getItem('st');
- const {data,error}=await supabase.rpc('student_portal',{p_session_token:token});
- if(error) return alert(error.message);
- document.getElementById('sp_info').innerText=data.stage+' - '+data.group_name;
- document.getElementById('sp_att').innerHTML='<h4>📅 الحضور</h4>'+data.attendance.map(a=>`<div class="card" style="display:flex;justify-content:space-between"><span>${a.date}</span><span class="badge ${a.status=='حاضر'?'present':'absent'}">${a.status}</span></div>`).join('');
- document.getElementById('sp_grades').innerHTML='<h4>📝 الدرجات</h4>'+data.grades.map(g=>`<div class="card">${g.type}: ${g.title} = ${g.score}/${g.max_score}</div>`).join('');
- document.getElementById('sp_pay').innerHTML='<h4>💰 الدفع</h4>'+data.payments.map(p=>`<div class="card">${p.month} - ${p.status} ${p.amount||''}</div>`).join('');
-}
-async function loadCourses(){
- const token=studentToken||localStorage.getItem('st');
- const {data,error}=await supabase.rpc('student_courses',{p_session_token:token});
- if(error) return alert(error.message);
- let html='<h4>🎥 كورساتي</h4>';
- data.forEach(c=>{ html+=`<div class="card"><b>${c.title}</b><br>${c.unlocked? `<button class="btn" onclick="openCourse('${c.id}')">فتح</button>`:'🔒 مقفول - تواصل مع مستر حسن'} </div>`; });
- document.getElementById('sp_courses').innerHTML=html;
-}
-async function openCourse(cid){
- const token=studentToken||localStorage.getItem('st');
- const {data,error}=await supabase.rpc('student_course_lessons',{p_session_token:token,p_course_id:cid});
- if(error) return alert(error.message);
- document.getElementById('sp_courses').innerHTML=data.map(l=>`<div class="card"><b>${l.title}</b><br><a href="${l.video_url}" target="_blank" style="color:#ff6b00">▶️ فتح الفيديو</a></div>`).join('');
-}
-function logoutStudent(){ localStorage.removeItem('st'); showTab('home'); }
-
-async function doAdminLogin(){
- try{
-  const email=document.getElementById('a_email').value.trim();
-  const pass=document.getElementById('a_pass').value;
-  if(!email||!pass) return alert('ادخل الايميل والباسورد');
-  const {error}=await supabase.auth.signInWithPassword({email,password:pass});
-  if(error) throw error;
-  const {data:chk,error:e2}=await supabase.rpc('is_current_user_admin');
-  if(e2) throw e2; if(!chk) throw new Error('ليس لديك صلاحية أدمن');
-  showTab('adminPanel'); adminLoadStudents();
- }catch(e){ alert('خطأ: '+e.message); }
-}
-function logoutAdmin(){ supabase.auth.signOut(); showTab('home'); }
-
-async function adminLoadStudents(){
- const {data,error}=await supabase.rpc('admin_list_students');
- if(error) return alert(error.message);
- let html=`<h4>الطلاب (${data.length}) - دوس على رقم ولي الأمر للواتساب</h4><input id="searchS" class="input" placeholder="بحث بالاسم..." oninput="filterStudents()">`;
- html+=data.map(s=>`<div class="card student-row" data-name="${s.full_name}"><b>${s.full_name}</b><br><span class="hint">${s.stage} - ${s.group_name} - كود: ${s.student_code}</span><br><div style="margin:8px 0">📞 ولي الأمر: <a href="javascript:void(0)" onclick="sendReport('${s.id}','${s.guardian_phone}','${s.full_name}')" style="color:#25D366;font-weight:900">${s.guardian_phone} - ابعت تقرير واتساب</a></div><div class="grid"><button class="btn" onclick="quickAction('${s.id}','att')">+ حضور</button><button class="btn" onclick="quickAction('${s.id}','grade')">+ درجة شيت/امتحان</button><button class="btn" onclick="quickAction('${s.id}','pay')">+ دفع / كورس</button></div><div id="form-${s.id}"></div></div>`).join('');
- document.getElementById('admin_content').innerHTML=html;
-}
-function filterStudents(){ const q=document.getElementById('searchS').value.toLowerCase(); document.querySelectorAll('.student-row').forEach(el=>{ el.style.display=el.dataset.name.toLowerCase().includes(q)?'':'none'; }); }
-function quickAction(id,type){
- let h='';
- if(type=='att') h=`<input id="d-${id}" type="date" class="input" value="${new Date().toISOString().split('T')[0]}"><select id="st-${id}" class="input"><option>حاضر</option><option>غائب</option><option>متأخر</option></select><button class="btn" onclick="saveAtt('${id}')">حفظ</button>`;
- if(type=='grade') h=`<select id="gt-${id}" class="input"><option>شيت</option><option>امتحان شهري</option></select><input id="tt-${id}" class="input" placeholder="عنوان"><input id="sc-${id}" type="number" class="input" placeholder="الدرجة"><input id="mx-${id}" type="number" class="input" placeholder="النهاية" value="10"><button class="btn" onclick="saveGrade('${id}')">حفظ</button>`;
- if(type=='pay') h=`<input id="mk-${id}" class="input" placeholder="الشهر 2026-05" value="2026-05"><input id="am-${id}" type="number" class="input" placeholder="المبلغ"><select id="ps-${id}" class="input"><option>مدفوع</option><option>غير مدفوع</option><option>قيد المراجعة</option></select><button class="btn" onclick="savePay('${id}')">حفظ</button><hr><input id="cid-${id}" class="input" placeholder="ID الكورس"><button class="btn btn-outline" onclick="grantCourse('${id}')">فتح كورس</button>`;
- document.getElementById('form-'+id).innerHTML=h;
-}
-async function saveAtt(id){ const {error}=await supabase.rpc('admin_add_attendance',{p_student_id:id,p_lesson_date:document.getElementById('d-'+id).value,p_status:document.getElementById('st-'+id).value}); if(error) alert(error.message); else alert('✅ حضور'); }
-async function saveGrade(id){ const {error}=await supabase.rpc('admin_add_grade',{p_student_id:id,p_grade_type:document.getElementById('gt-'+id).value,p_title:document.getElementById('tt-'+id).value,p_score:Number(document.getElementById('sc-'+id).value),p_max_score:Number(document.getElementById('mx-'+id).value)}); if(error) alert(error.message); else alert('✅ درجة'); }
-async function savePay(id){ const {error}=await supabase.rpc('admin_set_payment',{p_student_id:id,p_month_key:document.getElementById('mk-'+id).value,p_amount:Number(document.getElementById('am-'+id).value),p_status:document.getElementById('ps-'+id).value}); if(error) alert(error.message); else alert('✅ دفع'); }
-async function grantCourse(sid){ const cid=document.getElementById('cid-'+sid).value.trim(); if(!cid) return alert('ID الكورس'); const {error}=await supabase.rpc('admin_grant_course',{p_student_id:sid,p_course_id:cid}); if(error) alert(error.message); else alert('✅ فتح'); }
-
-async function sendReport(studentId, phone, fullName){
- try{
-  const {data,error}=await supabase.rpc('admin_student_report',{p_student_id:studentId});
-  if(error) throw error;
-  const msg=`السلام عليكم ورحمة الله
-مع حضرتك مستر حسن جاد - ${TEACHER_WA}
-تقرير الطالب: ${fullName}
-
-📅 الغيابات: ${data.absences} يوم
-📝 آخر شيت: ${data.last_sheet||'لا يوجد'}
-📝 آخر امتحان: ${data.last_exam||'لا يوجد'}
-💰 حالة دفع الشهر: ${data.payment||'غير مدفوع'}
-
-لو في أي استفسار تواصل معي على نفس الرقم
-مستر حسن جاد`;
-  const url=`https://wa.me/${toIntl(phone)}?text=${encodeURIComponent(msg)}`;
-  window.open(url,'_blank');
- }catch(e){ alert(e.message); }
-}
-
-async function adminLoadCourses(){
- const {data,error}=await supabase.rpc('admin_list_courses'); if(error) return alert(error.message);
- let html=`<div class="card"><h4>إضافة كورس</h4><input id="c_title" class="input" placeholder="عنوان"><input id="c_desc" class="input" placeholder="وصف"><select id="c_stage" class="input"><option>ثانوي</option><option>إعدادي</option><option>ابتدائي</option></select><input id="c_price" type="number" class="input" placeholder="السعر"><label><input type="checkbox" id="c_pub"> منشور</label><button class="btn" onclick="createCourse()">إنشاء</button></div>`;
- html+=data.map(c=>`<div class="card"><b>${c.title}</b> ID:${c.id}<br><input id="l_t_${c.id}" class="input" placeholder="عنوان الدرس"><input id="l_u_${c.id}" class="input" placeholder="رابط الفيديو"><button class="btn" onclick="addLesson('${c.id}')">+ درس</button></div>`).join('');
- document.getElementById('admin_content').innerHTML=html;
-}
-async function createCourse(){ const {data,error}=await supabase.rpc('admin_create_course',{p_title:document.getElementById('c_title').value,p_description:document.getElementById('c_desc').value,p_stage:document.getElementById('c_stage').value,p_price:Number(document.getElementById('c_price').value),p_published:document.getElementById('c_pub').checked}); if(error) return alert(error.message); alert('✅ كورس'); adminLoadCourses(); }
-async function addLesson(cid){ const {error}=await supabase.rpc('admin_add_lesson',{p_course_id:cid,p_title:document.getElementById('l_t_'+cid).value,p_video_url:document.getElementById('l_u_'+cid).value}); if(error) alert(error.message); else alert('✅ درس'); }
-</script>
-</body>
-</html>
+<body class="min-h-screen flex flex-col">
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-5 left-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-3 sm:px-0"></div>
+  <!-- ==================== PASSWORD LOCK SCREEN ==================== -->
+  <section id="lockScreen" class="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 p-4 relative overflow-hidden">
+    <!-- Decorative background blobs -->
+    <div class="absolute -top-24 -right-24 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-teal-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="w-full max-w-md bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border border-white/20 p-6 sm:p-8 relative z-10 animate-fade-in">
+      <div class="text-center mb-6">
+        <div class="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 to-teal-500 text-white flex items-center justify-center shadow-lg mb-4">
+          <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+        <span class="inline-block px-3 py-1 text-xs font-bold rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100 mb-2">
+          بوابة الإدارة والمتابعة التعليمية
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-snug">
+          منصة المستر حسن جاد
+        </h1>
+        <p class="text-sm sm:text-base font-semibold text-teal-700 mt-0.5">
+          للغة الإنجليزية — English Language Platform
+        </p>
+        <p class="text-xs text-slate-500 mt-2">
+          أدخل كلمة سر المنصة للوصول إلى بيانات الطلاب، الشيت، الحضور، الأونلاين، المدفوعات، وتقارير الواتساب.
+        </p>
+      </div>
+      <form id="unlockForm" class="space-y-4">
+        <div>
+          <label for="passwordInput" class="block text-sm font-bold text-slate-700 mb-1.5">
+            كلمة سر المنصة
+          </label>
+          <div class="relative">
+            <input
+              id="passwordInput"
+              type="password"
+              required
+              autocomplete="off"
+              placeholder="أدخل كلمة السر هنا..."
+              class="w-full rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/15 px-4 py-3 pr-11 text-base font-semibold text-slate-900 outline-none transition"
+            />
+            <button
+              type="button"
+              id="togglePasswordBtn"
+              aria-label="إظهار أو إخفاء كلمة السر"
+              class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-indigo-600 transition"
+            >
+              <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            </button>
+          </div>
+          <div class="flex items-center justify-between mt-2 text-xs text-slate-500">
+            <button type="button" id="hintBtn" class="text-indigo-600 hover:underline font-semibold">
+              تلميح كلمة السر
+            </button>
+            <span id="hintText" class="hidden bg-amber-50 text-amber-800 border border-amber-200 px-2.5 py-0.5 rounded-lg font-bold">
+              كلمة السر: مارو 1212
+            </span>
+          </div>
+        </div>
+        <p id="passwordError" class="hidden text-xs sm:text-sm font-bold text-rose-600 bg-rose-50 border border-rose-200 rounded-xl px-3.5 py-2.5">
+          كلمة السر غير صحيحة! تأكد من كتابتها بشكل صحيح.
+        </p>
+        <button
+          type="submit"
+          class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 active:scale-[0.99] text-white font-extrabold text-base shadow-lg shadow-indigo-600/25 transition flex items-center justify-center gap-2"
+        >
+          <span>دخول إلى المنصة</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+          </svg>
+        </button>
+      </form>
+    </div>
+  </section>
+  <!-- ==================== MAIN PLATFORM APPLICATION ==================== -->
+  <div id="appShell" class="hidden min-h-screen flex flex-col">
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-center justify-between gap-3 py-3">
+          <!-- Brand Identity -->
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-teal-600 text-white flex items-center justify-center font-black text-lg sm:text-xl shadow-md shrink-0">
+              HG
+            </div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h1 class="text-base sm:text-xl font-black text-slate-900 truncate">
+                  منصة المستر حسن جاد للغة الإنجليزية
+                </h1>
+                <span class="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-teal-50 text-teal-700 border border-teal-200">
+                  أوفلاين &amp; أونلاين
+                </span>
+              </div>
+              <p class="text-xs text-slate-500 truncate">
+                إدارة الطلاب • الشيت • الحضور والغياب • الكورسات والدروس الأونلاين • المدفوعات • واتساب ولي الأمر
+              </p>
+            </div>
+          </div>
+          <!-- Header Actions -->
+          <div class="flex items-center gap-2 sm:gap-2.5">
+            <button
+              id="openAddStudentBtn"
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white font-bold text-xs sm:text-sm shadow-sm transition"
+            >
+              <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+              <span>إضافة طالب</span>
+            </button>
+            <button
+              id="resetDemoDataBtn"
+              type="button"
+              title="استعادة البيانات الافتراضية"
+              class="inline-flex items-center gap-1 px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span class="hidden sm:inline">استعادة النموذج</span>
+            </button>
+            <button
+              id="lockPlatformBtn"
+              type="button"
+              title="قفل المنصة"
+              class="inline-flex items-center gap-1 px-3 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs transition"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <span class="hidden sm:inline">قفل</span>
+            </button>
+          </div>
+        </div>
+        <!-- Navigation Tabs -->
+        <nav class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-2.5 pt-1 -mx-1 px-1" aria-label="أقسام المنصة">
+          <button data-tab="students" class="nav-tab active whitespace-nowrap px-3.5 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition flex items-center gap-1.5 bg-indigo-600 text-white shadow-sm">
+            <span>الطلاب وملفاتهم الكاملة</span>
+          </button>
+          <button data-tab="groups" class="nav-tab whitespace-nowrap px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200">
+            <span>مجموعات الأوفلاين والصفوف</span>
+          </button>
+          <button data-tab="online" class="nav-tab whitespace-nowrap px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200">
+            <span>كورسات ودروس الأونلاين</span>
+          </button>
+          <button data-tab="sheets_attendance" class="nav-tab whitespace-nowrap px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200">
+            <span>الشيت والحضور والغياب</span>
+          </button>
+          <button data-tab="payments" class="nav-tab whitespace-nowrap px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200">
+            <span>المدفوعات والحسابات</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-7 space-y-6">
+      <!-- Summary KPI Cards -->
+      <section id="statsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+        <!-- Populated dynamically via JS -->
+      </section>
+      <!-- Global Filter & Search Bar -->
+      <section class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-5 space-y-4">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+          <div class="relative flex-1">
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="ابحث باسم الطالب، رقم ولي الأمر، كورس الأونلاين، أو الدرس..."
+              class="w-full rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-600/10 py-2.5 pr-10 pl-4 text-sm font-semibold text-slate-800 outline-none transition"
+            />
+            <svg class="w-5 h-5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 lg:w-auto">
+            <!-- Grade Filter (All 12 Grades) -->
+            <select id="gradeFilter" aria-label="تصفية حسب الصف الدراسي" class="rounded-xl border border-slate-300 bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/15 px-3.5 py-2.5 text-xs sm:text-sm font-bold text-slate-700 outline-none">
+              <option value="ALL">كل الصفوف (من 1 ابتدائي لـ 3 ثانوي)</option>
+            </select>
+            <!-- Group / Center Filter -->
+            <select id="groupFilter" aria-label="تصفية حسب المجموعة أو النظام" class="rounded-xl border border-slate-300 bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/15 px-3.5 py-2.5 text-xs sm:text-sm font-bold text-slate-700 outline-none">
+              <option value="ALL">كل المجموعات (أوفلاين + أونلاين)</option>
+              <option value="قارة العاشر">أوفلاين — قارة العاشر</option>
+              <option value="قارة الرضوان">أوفلاين — قارة الرضوان</option>
+              <option value="الكاب">أوفلاين — الكاب</option>
+              <option value="أونلاين">نظام الأونلاين</option>
+            </select>
+            <!-- Payment Status Filter -->
+            <select id="paymentFilter" aria-label="تصفية حسب حالة الدفع" class="rounded-xl border border-slate-300 bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/15 px-3.5 py-2.5 text-xs sm:text-sm font-bold text-slate-700 outline-none">
+              <option value="ALL">كل حالات المدفوعات</option>
+              <option value="مدفوع">مدفوع بالكامل</option>
+              <option value="جزئي">دفع جزئي</option>
+              <option value="متأخر">متأخر / لم يدفع</option>
+            </select>
+          </div>
+        </div>
+        <!-- Quick Grade Pills Scroll Strip -->
+        <div class="pt-1 border-t border-slate-100">
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1" id="gradeQuickPills">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </section>
+      <!-- ==================== TAB 1: STUDENTS DIRECTORY ==================== -->
+      <section id="tab-students" class="tab-panel space-y-4 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">سجل الطلاب الكامل</h2>
+            <p class="text-xs sm:text-sm text-slate-500">
+              لكل طالب ملف متكامل يشمل: درجة الشيت، الحضور، الغياب، كورسات ودروس الأونلاين، المدفوعات، وزر إرسال تقرير واتساب فوري لولي الأمر.
+            </p>
+          </div>
+          <span id="resultsCountBadge" class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-extrabold border border-indigo-100">
+            0 طالب
+          </span>
+        </div>
+        <div id="studentsCardsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
+          <!-- Student cards rendered here -->
+        </div>
+        <div id="emptyStudentsState" class="hidden bg-white rounded-2xl border border-dashed border-slate-300 p-10 text-center">
+          <p class="text-base font-bold text-slate-700">لا يوجد طلاب مطابقون للبحث أو الفلاتر الحالية</p>
+          <p class="text-xs text-slate-500 mt-1">جرّب تغيير الصف الدراسي أو المجموعة أو أضف طالبًا جديدًا.</p>
+        </div>
+      </section>
+      <!-- ==================== TAB 2: OFFLINE GROUPS & ALL GRADES ==================== -->
+      <section id="tab-groups" class="tab-panel hidden space-y-6 animate-fade-in">
+        <div class="bg-gradient-to-l from-indigo-900 via-indigo-800 to-teal-800 text-white rounded-3xl p-5 sm:p-7 shadow-md">
+          <h2 class="text-xl sm:text-2xl font-black">مجموعات الأوفلاين وجميع الصفوف الدراسية</h2>
+          <p class="text-xs sm:text-sm text-indigo-100 mt-1.5 leading-relaxed">
+            تم توفير جميع الصفوف من <strong>أولى ابتدائي حتى تالتة ثانوي</strong> في كل السناتر، مع إبراز المجموعات الأساسية المحددة:
+            <span class="inline-block bg-white/15 px-2 py-0.5 rounded-lg font-bold mx-0.5">قارة العاشر: خامسة ابتدائي، أولى إعدادي، تانية إعدادي + كل الصفوف حتى ثانوي</span>
+            <span class="inline-block bg-white/15 px-2 py-0.5 rounded-lg font-bold mx-0.5">قارة الرضوان: أولى ابتدائي حتى تالتة إعدادي + كل الصفوف حتى ثانوي</span>
+            <span class="inline-block bg-white/15 px-2 py-0.5 rounded-lg font-bold mx-0.5">الكاب: كل الصفوف من ابتدائي لثانوي</span>.
+          </p>
+        </div>
+        <!-- 3 Offline Centers Cards -->
+        <div id="centersOverviewGrid" class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          <!-- Populated via JS -->
+        </div>
+        <!-- Complete 12-Grade Matrix Table -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="p-4 sm:p-5 border-b border-slate-100 flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 class="text-base sm:text-lg font-extrabold text-slate-900">جدول توزيع الصفوف الدراسية (من 1 ابتدائي إلى 3 ثانوي)</h3>
+              <p class="text-xs text-slate-500">اضغط على أي صف أو مجموعة لتصفية الطلاب مباشرة</p>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-right border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 font-extrabold">
+                  <th class="py-3 px-4">الصف الدراسي</th>
+                  <th class="py-3 px-4">المرحلة</th>
+                  <th class="py-3 px-4">قارة العاشر</th>
+                  <th class="py-3 px-4">قارة الرضوان</th>
+                  <th class="py-3 px-4">الكاب</th>
+                  <th class="py-3 px-4">أونلاين</th>
+                  <th class="py-3 px-4">إجمالي الطلاب</th>
+                </tr>
+              </thead>
+              <tbody id="gradesMatrixBody" class="divide-y divide-slate-100">
+                <!-- Populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <!-- ==================== TAB 3: ONLINE COURSES & LESSONS ==================== -->
+      <section id="tab-online" class="tab-panel hidden space-y-5 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">متابعة كورسات الأونلاين والدروس الأونلاين لكل طالب</h2>
+            <p class="text-xs sm:text-sm text-slate-500">
+              عرض وتحديث الكورسات المسجلة والدروس الأونلاين المنجزة لكل طالب مع إمكانية إرسال تقرير واتساب فوري لولي الأمر.
+            </p>
+          </div>
+        </div>
+        <div id="onlineTrackingList" class="grid grid-cols-1 md:grid-cols-2 ga
